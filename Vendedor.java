@@ -1,16 +1,17 @@
 import java.util.Scanner;
 
-//David García Antón
+import java.util.Scanner;
+
+// David García Antón
 public class Vendedor {
     private String idVendedor;
     private boolean esJefe;
-    private String salario;
+    private int salario;
     private String jornadaLaboral;
 
-
-    public Vendedor(String idVendedor, boolean esJefe, String salario, String jornadaLaboral) {
+    public Vendedor(String idVendedor, boolean esJefe, int salario, String jornadaLaboral) {
         setIdVendedor(idVendedor);
-        setEsJefe(esJefe);
+        this.esJefe = esJefe;
         setSalario(salario);
         setJornadaLaboral(jornadaLaboral);
     }
@@ -24,7 +25,7 @@ public class Vendedor {
         return esJefe;
     }
 
-    public String getSalario() {
+    public int getSalario() {
         return salario;
     }
 
@@ -32,12 +33,11 @@ public class Vendedor {
         return jornadaLaboral;
     }
 
-
     public void setIdVendedor(String idVendedor) {
         if (idVendedor != null && idVendedor.length() <= 9) {
             this.idVendedor = idVendedor;
         } else {
-            throw new IllegalArgumentException("ID de Vendedor inválido Máximo 9 caracteres.");
+            throw new IllegalArgumentException("ID de Vendedor inválido. Máximo 9 caracteres.");
         }
     }
 
@@ -45,18 +45,16 @@ public class Vendedor {
         this.esJefe = esJefe;
     }
 
-    public void setSalario(String salario) {
-        try {
-            Integer.parseInt(salario);
-            if (salario.length() <= 10) {
-                this.salario = salario;
-            } else {
-                throw new IllegalArgumentException("Salario inválido. Máximo 10 dígitos.");
-            }
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Salario debe contener solo números.");
+
+//En el diccionario de datos, tenemos Salario como Varchar, pero lo hemos cambiado a Int, ya que usar un String no era práctico.
+    public void setSalario(int salario) {
+        if (salario >= 0) {
+            this.salario = salario;
+        } else {
+            throw new IllegalArgumentException("Salario inválido. No puede ser negativo.");
         }
     }
+
 
     public void setJornadaLaboral(String jornadaLaboral) {
         if (jornadaLaboral != null && jornadaLaboral.length() <= 10) {
@@ -65,7 +63,6 @@ public class Vendedor {
             throw new IllegalArgumentException("Jornada laboral inválida. Máximo 10 caracteres.");
         }
     }
-
 
     public void mostrarVendedor() {
         System.out.println("Vendedor creado:");
